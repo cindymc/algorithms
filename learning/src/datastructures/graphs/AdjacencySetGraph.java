@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A sparse graph with few connections between nodes.
+ * A sparse graph with few connections between nodes.  Does not support weighting.
  *
  * Space complexity: O(E+V)
  * Time (is edge present): Lg(Degree of V)

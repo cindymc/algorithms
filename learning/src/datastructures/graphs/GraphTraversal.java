@@ -1,8 +1,6 @@
 package datastructures.graphs;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * Created by cindymc on 7/7/16.
@@ -32,9 +30,59 @@ public class GraphTraversal
         }
     }
 
-    public static List<Integer> shortestPath(Graph graph, int source, int destination)
+    // Unweighted graph
+    public static void shortestPath(Graph graph, int source, int destination)
     {
+        // Build the distance table for the entire graph
+        Map<Integer,DistanceInfo> distanceTable = DistanceTable.build(graph, source);
+        shortestPath(distanceTable, source, destination);
+    }
 
+    // Weighted graph
+    public static void shortestPath(WeightedGraph graph, Integer source, Integer destination)
+    {
+        Map<Integer, DistanceInfo> distanceTable = WeightedDistanceTable.build(graph, source);
+        shortestPath(distanceTable, source, destination);
+    }
+
+    // Weighted graph, but we want shortest path with fewest number of edges
+    public static void shortestPathWithEdges(WeightedGraph graph, Integer source, Integer destination)
+    {
+        Map<Integer, DistanceEdgeInfo> distanceTable = FewestEdgesDistanceTable.build(graph, source);
+
+        Map<Integer, DistanceInfo> table = new HashMap<>(distanceTable);
+        shortestPath(table, source, destination);
+    }
+
+
+    private static void shortestPath(Map<Integer, DistanceInfo> distanceTable,
+                                     int source, int destination)
+    {
+        // Backtrack using a stack, using the destination node
+        Stack<Integer> stack = new Stack<>();
+        stack.push(destination);
+
+        // Backtrack by getting the previous node of every node and putting it on the stack.
+        // Start at the destination.
+        int previousVertex = distanceTable.get(destination).getLastVertex();
+        while (previousVertex != -1 && previousVertex != source)
+        {
+            stack.push(previousVertex);
+            previousVertex = distanceTable.get(previousVertex).getLastVertex();
+        }
+
+        if (previousVertex ==-1)
+        {
+            System.err.println("No path");
+        }
+        else
+        {
+            System.err.println("Shortest path: ");
+            while (! stack.isEmpty())
+            {
+                System.err.println(stack.pop());
+            }
+        }
     }
 
 

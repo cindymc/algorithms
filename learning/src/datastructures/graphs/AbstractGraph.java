@@ -15,8 +15,8 @@ abstract class AbstractGraph implements Graph
         this.numVertices = numVertices;
         this.graphType = graphType;
     }
-    public abstract List<Integer> getAdjacentVertices(int v);
 
+    public abstract List<Integer> getAdjacentVertices(int v);
     public int getNumVertices()
     {
         return numVertices;
