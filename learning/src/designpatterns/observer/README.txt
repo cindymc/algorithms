@@ -1,0 +1,1 @@
+This implementation doesn't use Java infra OOTB -- it rolls its own.
