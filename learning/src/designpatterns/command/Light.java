@@ -7,4 +7,6 @@ public class Light
 {
     public void on(){System.out.println("ON!");}
     public void off(){System.out.println("OFF!");}
+    public void dim(){System.out.println("DIM!");}
+    public void strobe(){System.out.println("STROBE!");}
 }

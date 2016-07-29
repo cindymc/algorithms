@@ -13,16 +13,18 @@ public class RemoteControlTest
 
 
         Light light = new Light();
-        //LightOnCommand on = new LightOnCommand(light);
-        //LightOffCommand off = new LightOffCommand(light);
 
-        // Put the light control in slot 0, with on/off actions
-        //remote.setCommand(0, on, off);
-
-        // Here's a way to do this much cleaner, with lambdas.  This will only work if the
+        // Here's a way to do this (without a derived Command class for each action) with lambdas.  This will only work if the
         // Command interface has a single method (execute()) that takes no args and returns no values.
         // WOW.  Cool.
-        remote.setCommand(0, () -> {light.on();} , () -> {light.off();});
+        //remote.setCommand(0, () -> {light.on();} , () -> {light.off();});
+
+        // Even simpler: use method references
+        //remote.setCommand(0, light::on, light::off);
+
+        // What if you want to take several actions for a single command?
+        Command dimStrobeLight = () -> { light.on(); light.dim(); light.strobe();};
+        remote.setCommand(0, dimStrobeLight, light::off);
 
         // Push the on/off button
         remote.onButtonPushed(0);
