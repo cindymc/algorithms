@@ -10,7 +10,7 @@ public class EagerSingleton
     private EagerSingleton(){}
 
     // create statically when EagerSingleton is created.  Static initializers are guaranteed to be thread-safe
-    public static EagerSingleton instance = new EagerSingleton();
+    public static final EagerSingleton instance = new EagerSingleton();
 
     // Accessor
     public static EagerSingleton getInstance() {return instance;}

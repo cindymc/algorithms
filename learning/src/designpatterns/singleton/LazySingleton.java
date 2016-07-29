@@ -1,35 +1,24 @@
 package designpatterns.singleton;
 
 /**
- * May have some associated costs to create, so don't it until we need it (lazy construction0.
+ * May have some associated costs to create, so don't it until we need it (lazy construction).
+ * https://en.wikipedia.org/wiki/Initialization-on-demand_holder_idiom
+ *
  * Created by cindy on 7/29/16.
  */
 public class LazySingleton
 {
-    // private ctor
-    private static volatile LazySingleton instance;
     private LazySingleton(){}
+
+    private static class LazyHolder
+    {
+        private static final LazySingleton instance = new LazySingleton();
+    }
 
     // Construct if doesn't exist, but now need so synchronze
     public static LazySingleton getInstance()
     {
-        // Check first time
-        if (instance == null)
-        {
-            // synchonize on this class
-            // TODO: Check 'Effective Java' to see whether we should sync the entire method
-            synchronized(LazySingleton.class)
-            {
-                if (instance==null)
-                {
-                    instance = new LazySingleton();
-
-                    // The creation of LazySingleton may be expensive, but we only pay the synch cost once.d
-                }
-            }
-        }
-        return instance;
+        return LazyHolder.instance;
     }
-
 
 }
