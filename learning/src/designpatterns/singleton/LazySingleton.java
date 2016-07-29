@@ -17,16 +17,18 @@ public class LazySingleton
         if (instance == null)
         {
             // synchonize on this class
+            // TODO: Check 'Effective Java' to see whether we should sync the entire method
             synchronized(LazySingleton.class)
             {
                 if (instance==null)
                 {
                     instance = new LazySingleton();
 
-                    // The creation of LazySingleton may be expensive, but we only pay the synch cost once.
+                    // The creation of LazySingleton may be expensive, but we only pay the synch cost once.d
                 }
             }
         }
+        return instance;
     }
 
 
