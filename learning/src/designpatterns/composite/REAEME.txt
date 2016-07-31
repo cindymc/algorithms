@@ -1,0 +1,17 @@
+The Composite pattern allows you to compose objects into tree structures to represent whole-part hierarchies.  This lets
+clients treat individual objects and composites uniformly.
+
+Using a composite structure, we can apply the same operation (eg, print()) over all or parts of the menu
+
+Menu
+    DinerMenu
+        MenuItem
+        MenuItem
+    CafeMenu
+        MenuItem
+    PancakeHouseMenu
+        MenuItem
+
+(submenu)
+DessertMenu
+    MenuItem
