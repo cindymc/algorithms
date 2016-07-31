@@ -30,31 +30,30 @@ public class GraphTraversal
         }
     }
 
-    // Unweighted graph
-    public static void shortestPath(Graph graph, int source, int destination)
-    {
-        // Build the distance table for the entire graph
-        Map<Integer,DistanceInfo> distanceTable = DistanceTable.build(graph, source);
-        shortestPath(distanceTable, source, destination);
-    }
 
-    // Weighted graph
-    public static void shortestPath(WeightedGraph graph, Integer source, Integer destination)
+
+    // Dijkstra's algorithm
+    public static void shortestPath(Graph graph, Integer source, Integer destination)
     {
-        Map<Integer, DistanceInfo> distanceTable = WeightedDistanceTable.build(graph, source);
+        Map<Integer, DistanceInfo> distanceTable = DistanceTable.build(graph, source);
         shortestPath(distanceTable, source, destination);
     }
 
     // Weighted graph, but we want shortest path with fewest number of edges
-    public static void shortestPathWithEdges(WeightedGraph graph, Integer source, Integer destination)
+    public static void shortestPathWithEdges(Graph graph, Integer source, Integer destination)
     {
-        Map<Integer, DistanceEdgeInfo> distanceTable = FewestEdgesDistanceTable.build(graph, source);
-
-        Map<Integer, DistanceInfo> table = new HashMap<>(distanceTable);
-        shortestPath(table, source, destination);
+        Map<Integer, DistanceInfo> distanceTable = DistanceTable.build(graph, source);
+        shortestPath(distanceTable, source, destination);
     }
 
 
+    /**
+     * The magic in Dijkstra's algorithm is all in building the distance table: use a PriorityQueue and BFS to
+     * build a Map of Vertex/DistanceInfo, where DistanceInfo holds the total distance from the source.
+     * @param distanceTable
+     * @param source
+     * @param destination
+     */
     private static void shortestPath(Map<Integer, DistanceInfo> distanceTable,
                                      int source, int destination)
     {

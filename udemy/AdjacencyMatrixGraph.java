@@ -1,11 +1,11 @@
-package com.company;
+package udemy;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Navdeep on 18-02-2016.
  */
-public class AdjacencyMatrixGraph implements Graph {
+public class AdjacencyMatrixGraph implements udemy.Graph {
 
     private int[][] adjacencyMatrix;
     private  GraphType graphType = GraphType.DIRECTED;

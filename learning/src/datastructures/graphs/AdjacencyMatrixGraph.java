@@ -12,14 +12,22 @@ import java.util.List;
  * Time (is edge present): O(1)
  * Iterate over edges: O(V)
  */
-public class AdjacencyMatrixGraph extends AbstractGraph implements WeightedGraph
+public class AdjacencyMatrixGraph implements Graph
 {
     private int[][] adjacencyMatrix;
+    private GraphType graphType;
+    private int numVertices = 0;
 
+    /**
+     * Initialize the graph adjacency matrix to all zeros
+     * @param numVertices
+     * @param graphType
+     */
     public AdjacencyMatrixGraph(int numVertices, GraphType graphType)
     {
-        super(numVertices, graphType);
-
+        // Set up a square matrix of vertices for the distance table
+        this.numVertices = numVertices;
+        this.graphType = graphType;
         adjacencyMatrix = new int[numVertices][numVertices];
 
         // Init matrix to all zeros
@@ -33,26 +41,38 @@ public class AdjacencyMatrixGraph extends AbstractGraph implements WeightedGraph
     }
 
     @Override
+    public int getNumVertices() {return numVertices;}
+
+    @Override
+    public GraphType typeOfGraph(){
+        return graphType;
+    }
+
+    @Override
     public void addEdge(int v1, int v2)
     {
         addEdge(v1, v2, 1);
     }
 
     @Override
-    public void addEdge(int v1, int v2, int weight) {
+    public void addEdge(int v1, int v2, int weight)
+    {
+        // Validate vertex numbers
         if (v1 >= numVertices || v2 >= numVertices || v1 < 0 || v2 < 0) {
             throw new  IllegalArgumentException("Vertex number is not valid");
         }
+
+        // Set value in adjacency matrix
         adjacencyMatrix[v1][v2] = weight;
         if(graphType == GraphType.UNDIRECTED) {
             adjacencyMatrix[v2][v1] = weight;
         }
     }
 
-    @Override
-    public int getWeightedEdge(int v1, int v2) {
-        return adjacencyMatrix[v1][v2];
-    }
+   // @Override
+   // public int getWeightedEdge(int v1, int v2) {
+   //     return adjacencyMatrix[v1][v2];
+   // }
 
     @Override
     public int getIndegree(int v){

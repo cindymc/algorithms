@@ -1,4 +1,4 @@
-package com.company;
+package udemy;
 
 import java.util.*;
 
@@ -9,7 +9,7 @@ public class Dijkstra {
 
 
     public static void main(String[] args) {
-        Graph graph1 = new AdjacencyMatrixGraph(8, Graph.GraphType.DIRECTED);
+        Graph graph1 = new AdjacencyMatrixGraph(8, udemy.Graph.GraphType.DIRECTED);
         graph1.addEdge(2, 7, 4);
         graph1.addEdge(0, 3, 2);
         graph1.addEdge(0, 4, 2);
