@@ -35,14 +35,14 @@ public class GraphTraversal
     // Dijkstra's algorithm
     public static void shortestPath(Graph graph, Integer source, Integer destination)
     {
-        Map<Integer, DistanceInfo> distanceTable = DistanceTable.build(graph, source);
+        Map<Integer, DistanceInfo> distanceTable = DistanceTable.build(graph, source, false);
         shortestPath(distanceTable, source, destination);
     }
 
     // Weighted graph, but we want shortest path with fewest number of edges
     public static void shortestPathWithEdges(Graph graph, Integer source, Integer destination)
     {
-        Map<Integer, DistanceInfo> distanceTable = DistanceTable.build(graph, source);
+        Map<Integer, DistanceInfo> distanceTable = DistanceTable.build(graph, source, true);
         shortestPath(distanceTable, source, destination);
     }
 

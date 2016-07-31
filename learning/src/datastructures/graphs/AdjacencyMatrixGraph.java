@@ -18,6 +18,11 @@ public class AdjacencyMatrixGraph implements Graph
     private GraphType graphType;
     private int numVertices = 0;
 
+    public int getWeightedEdge(int v1, int v2)
+    {
+        return adjacencyMatrix[v1][v2];
+    }
+
     /**
      * Initialize the graph adjacency matrix to all zeros
      * @param numVertices
