@@ -3,6 +3,14 @@ package datastructures.graphs;
 /**
  * A class which holds the distance (from a given source node) info for any vertex.
  *
+ * The result of building a DistanceTable is a Map of <VertexId, DistanceInfo>.  When calculating shortest path, we
+ * start from the destination node, find it in that Map, push it onto the stack.  To find the next node in the path,
+ * we GET THE LAST VERTEX from that node, and push it onto the stack.  We do this until the next node in the path is
+ * the source.
+ *
+ * The DistanceTable is initialized with empty DistanceInfo for every vertex in the graph.  As we build up the
+ * DistanceTable, we pop nodes off the PriorityQueue<VertexInfo>, get their ID, and
+ *
  * (How far away from the source node are we, and what's the last node on the path from the source before
  * reaching this node?)
  *
@@ -10,11 +18,19 @@ package datastructures.graphs;
  */
 public class DistanceInfo
 {
-    protected Integer distance = -1;    // For weighted graph, because weights can be positive or negative
-    protected Integer lastVertex = Integer.MAX_VALUE;
+    protected Integer distance = Integer.MAX_VALUE;
+    protected Integer lastVertex = -1;      // last vertex before this one while traversing from the source node
 
     // Number of edges traversed from source to this node
-    private Integer numEdges = Integer.MAX_VALUE;
+    private Integer numEdges = 0;
+
+
+    public DistanceInfo(){}
+    public DistanceInfo(int lastVertex, int distance, int numEdges)
+    {
+        setInfo(lastVertex, distance, numEdges);
+    }
+
 
     public void setInfo(int lastVertex, int distance, int numEdges)
     {

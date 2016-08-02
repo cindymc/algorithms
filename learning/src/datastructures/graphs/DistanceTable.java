@@ -65,35 +65,39 @@ public class DistanceTable
             {
                 // Distance info about current vertex
                 DistanceInfo currentInfo = distanceTable.get(currentVertex);
-                DistanceInfo neighborInfo = distanceTable.get(neighbor);
 
                 // Total distance includes weighted edge
                 int distance = currentInfo.getDistance() +  graph.getWeightedEdge(currentVertex, neighbor);
 
-                // Distance to this neighbor
-                int neighborDistance = neighborInfo.getDistance();
-
+                // This may not matter if we're not considering 'shortest path with minimal edges'
                 int numEdges = 0;
                 if (fewestEdges)
                 {
-                     numEdges = distanceTable.get(currentVertex).getNumEdges() + 1;
+                    numEdges = distanceTable.get(currentVertex).getNumEdges() + 1;
                 }
 
-                // If we find a new shortest path to the neighbor, update the info
+                // Distance to this neighbor.  Will be Integer.MAX_VALUE unless otherwise set
+                DistanceInfo neighborInfo = distanceTable.get(neighbor);
+                int neighborDistance = neighborInfo.getDistance();
+
+                // If we find a new shortest path to the neighbor, OR IF WE HAVEN'T YET CALCULATED THE DISTANCE TO
+                // THIS VERTEX, update the vertex distance info
                 if ( distance < neighborDistance ||
                         (distance==neighborDistance && (numEdges < neighborInfo.getNumEdges())))
                 {
-                    // We've found a new short path to the neighbor, so remove the old node from the priority queue
-                    // (if it existed)
-                    neighborInfo.setInfo(currentVertex, neighborDistance, numEdges);
+                    // Update the DistanceInfo in the table for this neighbor
+                    neighborInfo.setInfo(currentVertex, distance, numEdges);
 
+                    // If we previously added this node to the priority queue, update it by removing from queue, updating
+                    // info, then adding back into the queue.
                     VertexInfo neighborVertexInfo = vertexInfoMap.get(neighbor);
                     if (neighborVertexInfo != null)
                     {
                         queue.remove(neighborVertexInfo);
                     }
 
-                    // Update distance and add back to queue.  We'll start here next iteration.
+                    // Update distance and add back to queue.  Note that the Comparator in the queue will take care of
+                    // prioritizing it.
                     neighborVertexInfo = new VertexInfo(neighbor, distance, numEdges);
                     queue.add(neighborVertexInfo);
                     vertexInfoMap.put(neighbor, neighborVertexInfo);
