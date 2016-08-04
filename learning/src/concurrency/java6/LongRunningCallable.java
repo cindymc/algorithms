@@ -1,3 +1,4 @@
+package concurrency.java6;
 
 import java.util.concurrent.Callable;
 

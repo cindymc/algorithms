@@ -1,3 +1,4 @@
+package concurrency.java6;
 
 import java.util.Random;
 import java.util.concurrent.*;

@@ -1,6 +1,4 @@
-
-import java.util.concurrent.Semaphore;
-import java.util.concurrent.atomic.AtomicInteger;
+package concurrency.java6;
 
 /**
  * @author Copyright (c) 2013 by Oracle, Inc. All Rights Reserved.
