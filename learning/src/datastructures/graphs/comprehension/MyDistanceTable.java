@@ -66,21 +66,19 @@ public class MyDistanceTable
                 // then update it
                 if (distance < nDistance)
                 {
-                    // Update the distanceInfo from the current vertex to this vertex
+                    // Update the distanceInfo, where 'currentId' is the lastVertex
                     ndi.setInfo(currentId, distance, numEdges);
 
-                    // Get the VertexInfo from map and update it.  Remove from queue if we need to
+                    // Get the VertexInfo from map and update it with the new distance.  Remove from queue if we need to
                     VertexInfo nvi = vertexInfoMap.get(neighbor);
                     if (nvi != null)
                     {
                         queue.remove(nvi);
                     }
 
-                    // Update and add back into queue
+                    // Update and add back into queue and the VertexInfoMap
                     nvi = new VertexInfo(neighbor, distance, numEdges);
                     queue.add(nvi);
-
-                    // Update the VertexInfoMap
                     vertexInfoMap.put(neighbor, nvi);
                 }
             }
