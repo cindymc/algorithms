@@ -8,17 +8,35 @@ package designpatterns.singleton;
  */
 public class LazySingleton
 {
-    private LazySingleton(){}
+    // Important that this is volatile.  Volatile implies that only one thread can modify this variable (it's essentially
+    // a lock on the variable.  It cannot be held in any thread's cache.  It will not ever be partially constructed, so
+    // other threads will either see null, or the object (if it is constructed)
+    private static volatile LazySingleton instance;
 
-    private static class LazyHolder
+    // All Singletons have private ctors
+    private LazySingleton()
     {
-        private static final LazySingleton instance = new LazySingleton();
+        // Heavy lifting done here
     }
 
-    // Construct if doesn't exist, but now need so synchronze
+    // Double-checked locking
+    // First check is to see whether we need to lock to create the object.  Because we're using a volatile variable,
+    // we'll never see a partially-constructed instance.
     public static LazySingleton getInstance()
     {
-        return LazyHolder.instance;
+        if (instance == null)
+        {
+            // Always lock on the Class, not the Object!
+            synchronized (LazySingleton.class)
+            {
+                // Check again to make sure no other thread has created instance in between
+                if (instance == null)
+                {
+                    instance = new LazySingleton();
+                }
+            }
+        }
+        return instance;
     }
 
 }
