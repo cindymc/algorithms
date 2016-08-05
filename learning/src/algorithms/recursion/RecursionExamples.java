@@ -51,6 +51,7 @@ public class RecursionExamples
         merge(s1,s2,s);
     }
 
+
     private static void merge(int[] s1, int[] s2, int[] s)
     {
         int i=0, j=0;
@@ -65,6 +66,12 @@ public class RecursionExamples
                 s[i+j] = s2[j++];
             }
         }
+
+        // Could also do this
+        // The last entry is the NUMBER of components copied, not an index into the array
+       // System.arraycopy(s1, 0, s, 0, s1.length);
+        //System.arraycopy(s2, 0, s, s1.length, s2.length);
+
     }
 
     /**

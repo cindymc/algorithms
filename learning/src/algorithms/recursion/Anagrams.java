@@ -44,12 +44,13 @@ public class Anagrams
         }
 
         // Remove one character at a time from the original word and find the anagram of the REST of the word
-        List<String> anagramList = new ArrayList<>();
         char currentChar = word.charAt(0);
         String subset = word.substring(1, word.length());
 
         // Recurse
         List<String> potentialList = findAnagrams(subset);
+
+        List<String> anagramList = new ArrayList<>();
         insertCharacterAtEveryIndex(potentialList, currentChar, anagramList);
 
         return anagramList;
